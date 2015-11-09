@@ -58,8 +58,8 @@ public abstract class WebSocket extends AtmosphereInterceptorWriter implements K
     private final AtomicBoolean firstWrite = new AtomicBoolean(false);
     private final AtmosphereConfig config;
     private WebSocketHandler webSocketHandler;
-    protected ByteBuffer bb = ByteBuffer.allocate(8192);
-    protected CharBuffer cb = CharBuffer.allocate(8192);
+    protected ByteBuffer bb = null; //ByteBuffer.allocate(8192);
+    protected CharBuffer cb = null; //CharBuffer.allocate(8192);
     protected String uuid = "NUll";
     private Map<String, Object> attributesAtWebSocketOpen;
     private Object attachment;
@@ -68,9 +68,24 @@ public abstract class WebSocket extends AtmosphereInterceptorWriter implements K
         String s = config.getInitParameter(ApplicationConfig.WEBSOCKET_BINARY_WRITE);
         if (s != null && Boolean.parseBoolean(s)) {
             binaryWrite = true;
+
+            s = config.getInitParameter(ApplicationConfig.WEBSOCKET_MAXBINARYSIZE);
+            if (s != null) {
+                bb = ByteBuffer.allocate(Integer.valueOf(s));
+            } else {
+                bb = ByteBuffer.allocate(8192);
+            }
         } else {
             binaryWrite = false;
+
+             s = config.getInitParameter(ApplicationConfig.WEBSOCKET_MAXTEXTSIZE);
+            if (s != null) {
+                cb = CharBuffer.allocate(Integer.valueOf(s));
+            } else {
+                cb = CharBuffer.allocate(8192);
+            }
         }
+
         this.config = config;
     }
 
