@@ -1812,6 +1812,7 @@ public class AtmosphereRequestImpl extends HttpServletRequestWrapper implements 
     private static void load(HttpServletRequest request, Builder b) {
         Enumeration<String> e = request.getHeaderNames();
         String s;
+        /*
         while (e.hasMoreElements()) {
             s = e.nextElement();
             b.headers.put(s, request.getHeader(s));
@@ -1834,6 +1835,7 @@ public class AtmosphereRequestImpl extends HttpServletRequestWrapper implements 
         while (l.hasMoreElements()) {
             b.locale(l.nextElement());
         }
+        */
     }
 
     @Override
