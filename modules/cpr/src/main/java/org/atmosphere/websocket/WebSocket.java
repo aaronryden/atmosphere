@@ -29,6 +29,7 @@ import org.atmosphere.util.ByteArrayAsyncWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.net.SocketAddress;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
@@ -52,6 +53,7 @@ public abstract class WebSocket extends AtmosphereInterceptorWriter implements K
     public final static String NOT_SUPPORTED = "Websocket protocol not supported";
     public final static String CLEAN_CLOSE = "Clean_Close";
 
+    private SocketAddress remoteAddress;
     private AtmosphereResource r;
     protected long lastWrite = 0;
     protected boolean binaryWrite;
@@ -424,4 +426,13 @@ public abstract class WebSocket extends AtmosphereInterceptorWriter implements K
     public Object attachment() {
         return attachment;
     }
+    
+    public void setRemoteAddress(final SocketAddress ra) {
+        this.remoteAddress = ra;
+    }
+
+    public SocketAddress getRemoteAddress() {
+        return this.remoteAddress;
+    }
+
 }
