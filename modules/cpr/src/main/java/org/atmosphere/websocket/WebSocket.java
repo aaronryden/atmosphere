@@ -53,7 +53,6 @@ public abstract class WebSocket extends AtmosphereInterceptorWriter implements K
     public final static String NOT_SUPPORTED = "Websocket protocol not supported";
     public final static String CLEAN_CLOSE = "Clean_Close";
 
-    private SocketAddress remoteAddress;
     private AtmosphereResource r;
     protected long lastWrite = 0;
     protected boolean binaryWrite;
@@ -426,13 +425,4 @@ public abstract class WebSocket extends AtmosphereInterceptorWriter implements K
     public Object attachment() {
         return attachment;
     }
-    
-    public void setRemoteAddress(final SocketAddress ra) {
-        this.remoteAddress = ra;
-    }
-
-    public SocketAddress getRemoteAddress() {
-        return this.remoteAddress;
-    }
-
 }
